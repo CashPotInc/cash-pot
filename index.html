@@ -158,6 +158,17 @@
       cursor: not-allowed;
     }
 
+    .reset-button {
+      width: 100%;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid #30394a;
+      border-radius: 10px;
+      background: transparent;
+      color: #8992a3;
+      cursor: pointer;
+    }
+
     .result {
       min-height: 28px;
       margin-top: 18px;
@@ -229,6 +240,13 @@
         PLAY
       </button>
 
+      <button
+        class="reset-button"
+        onclick="resetBalance()"
+      >
+        RESET BALANCE
+      </button>
+
       <div class="result" id="result">
         Good luck! 🍀
       </div>
@@ -244,9 +262,26 @@
 
   <script>
 
-    let balance = 10000;
+    /*
+      LOAD SAVED BALANCE
+
+      If a balance was previously saved,
+      use it.
+
+      Otherwise start with 10,000 coins.
+    */
+
+    let savedBalance =
+      localStorage.getItem("cashPotBalance");
+
+    let balance =
+      savedBalance !== null
+        ? Number(savedBalance)
+        : 10000;
+
 
     let spinning = false;
+
 
     const symbols = [
       "🍒",
@@ -255,6 +290,27 @@
       "🍋",
       "7️⃣"
     ];
+
+
+    updateBalance();
+
+
+    function updateBalance() {
+
+      document.getElementById("balance").innerText =
+        balance.toLocaleString() + " 🪙";
+
+    }
+
+
+    function saveBalance() {
+
+      localStorage.setItem(
+        "cashPotBalance",
+        balance
+      );
+
+    }
 
 
     function playGame() {
@@ -290,10 +346,10 @@
         document.getElementById("slot3");
 
 
-      if (bet <= 0) {
+      if (bet < 100) {
 
         result.innerText =
-          "Enter a valid bet.";
+          "Minimum bet is 100 coins.";
 
         return;
       }
@@ -481,9 +537,9 @@
       }
 
 
-      document.getElementById("balance").innerText =
-        balance.toLocaleString() +
-        " 🪙";
+      saveBalance();
+
+      updateBalance();
 
 
       const button =
@@ -497,6 +553,21 @@
 
 
       spinning = false;
+
+    }
+
+
+    function resetBalance() {
+
+      balance = 10000;
+
+      saveBalance();
+
+      updateBalance();
+
+
+      document.getElementById("result").innerText =
+        "Balance reset to 10,000 coins.";
 
     }
 
