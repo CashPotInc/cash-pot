@@ -209,57 +209,121 @@
 
   <script>
 
-    let balance = 10000;
+  let balance = 10000;
+  let spinning = false;
 
-    const symbols = ["🍒", "⭐", "💎", "🍋", "7️⃣"];
+  const symbols = ["🍒", "⭐", "💎", "🍋", "7️⃣"];
 
-    function playGame() {
+  function playGame() {
 
-      const bet = Number(document.getElementById("bet").value);
+    if (spinning) return;
 
-      if (bet <= 0) {
-        document.getElementById("result").innerText =
-          "Enter a valid bet.";
-        return;
-      }
+    const bet = Number(document.getElementById("bet").value);
+    const result = document.getElementById("result");
+    const button = document.querySelector(".play-button");
 
-      if (bet > balance) {
-        document.getElementById("result").innerText =
-          "Insufficient coins.";
-        return;
-      }
-
-      const a = symbols[Math.floor(Math.random() * symbols.length)];
-      const b = symbols[Math.floor(Math.random() * symbols.length)];
-      const c = symbols[Math.floor(Math.random() * symbols.length)];
-
-      document.getElementById("slot1").innerText = a;
-      document.getElementById("slot2").innerText = b;
-      document.getElementById("slot3").innerText = c;
-
-      if (a === b && b === c) {
-
-        const winnings = bet * 5;
-
-        balance += winnings;
-
-        document.getElementById("result").innerText =
-          "🎉 JACKPOT! +" + winnings + " coins!";
-
-      } else {
-
-        balance -= bet;
-
-        document.getElementById("result").innerText =
-          "😢 You lost " + bet + " coins.";
-
-      }
-
-      document.getElementById("balance").innerText =
-        balance.toLocaleString() + " 🪙";
+    if (bet <= 0) {
+      result.innerText = "Enter a valid bet.";
+      return;
     }
 
-  </script>
+    if (bet > balance) {
+      result.innerText = "Insufficient coins.";
+      return;
+    }
 
+    spinning = true;
+    button.disabled = true;
+    button.innerText = "SPINNING...";
+
+    result.innerText = "🎰 Spinning...";
+
+    const slot1 = document.getElementById("slot1");
+    const slot2 = document.getElementById("slot2");
+    const slot3 = document.getElementById("slot3");
+
+    let spins = 0;
+
+    const animation = setInterval(() => {
+
+      slot1.innerText =
+        symbols[Math.floor(Math.random() * symbols.length)];
+
+      slot2.innerText =
+        symbols[Math.floor(Math.random() * symbols.length)];
+
+      slot3.innerText =
+        symbols[Math.floor(Math.random() * symbols.length)];
+
+      spins++;
+
+      if (spins >= 20) {
+
+        clearInterval(animation);
+
+        finishGame(bet);
+
+      }
+
+    }, 100);
+
+  }
+
+  function finishGame(bet) {
+
+    const slot1 = document.getElementById("slot1");
+    const slot2 = document.getElementById("slot2");
+    const slot3 = document.getElementById("slot3");
+
+    const a = symbols[Math.floor(Math.random() * symbols.length)];
+    const b = symbols[Math.floor(Math.random() * symbols.length)];
+    const c = symbols[Math.floor(Math.random() * symbols.length)];
+
+    slot1.innerText = a;
+    slot2.innerText = b;
+    slot3.innerText = c;
+
+    const result = document.getElementById("result");
+
+    if (a === b && b === c) {
+
+      const winnings = bet * 5;
+
+      balance += winnings;
+
+      result.innerText =
+        "🎉 JACKPOT! +" + winnings + " coins!";
+
+    } else if (a === b || b === c || a === c) {
+
+      const winnings = bet * 2;
+
+      balance += winnings;
+
+      result.innerText =
+        "✨ TWO MATCH! +" + winnings + " coins!";
+
+    } else {
+
+      balance -= bet;
+
+      result.innerText =
+        "😢 You lost " + bet + " coins.";
+
+    }
+
+    document.getElementById("balance").innerText =
+      balance.toLocaleString() + " 🪙";
+
+    const button = document.querySelector(".play-button");
+
+    button.disabled = false;
+    button.innerText = "PLAY";
+
+    spinning = false;
+
+  }
+
+  </script>
 </body>
 </html>
