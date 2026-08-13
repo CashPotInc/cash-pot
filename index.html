@@ -63,15 +63,18 @@
       margin-top: 8px;
     }
 
-    .game-card {
+    .game-card,
+    .history-card {
       background: #111722;
       border: 1px solid #293242;
       border-radius: 20px;
       padding: 20px;
       text-align: center;
+      margin-bottom: 20px;
     }
 
-    .game-title {
+    .game-title,
+    .history-title {
       font-size: 22px;
       font-weight: bold;
       margin-bottom: 18px;
@@ -176,6 +179,65 @@
       font-weight: bold;
     }
 
+    .history-list {
+      text-align: left;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid #252d3a;
+      gap: 10px;
+    }
+
+    .history-item:last-child {
+      border-bottom: none;
+    }
+
+    .history-game {
+      color: #c8ced9;
+      font-size: 14px;
+    }
+
+    .history-time {
+      color: #697386;
+      font-size: 11px;
+      margin-top: 4px;
+    }
+
+    .win {
+      color: #7ee787;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .loss {
+      color: #ff7b72;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .empty-history {
+      color: #697386;
+      font-size: 14px;
+      padding: 15px 0;
+    }
+
+    .clear-history {
+      width: 100%;
+      margin-top: 15px;
+      padding: 11px;
+      border: 1px solid #30394a;
+      border-radius: 10px;
+      background: transparent;
+      color: #8992a3;
+      cursor: pointer;
+    }
+
     .footer {
       text-align: center;
       color: #596273;
@@ -192,15 +254,25 @@
     <div class="subtitle">PLAY • SPIN • WIN</div>
   </header>
 
+
   <main class="container">
 
+    <!-- BALANCE -->
+
     <section class="balance-card">
-      <div class="balance-label">YOUR BALANCE</div>
+
+      <div class="balance-label">
+        YOUR BALANCE
+      </div>
 
       <div class="balance" id="balance">
         10,000 🪙
       </div>
+
     </section>
+
+
+    <!-- GAME -->
 
     <section class="game-card">
 
@@ -208,19 +280,29 @@
         🎰 Lucky Spin
       </div>
 
+
       <div class="slots">
 
-        <div class="slot" id="slot1">🍒</div>
+        <div class="slot" id="slot1">
+          🍒
+        </div>
 
-        <div class="slot" id="slot2">⭐</div>
+        <div class="slot" id="slot2">
+          ⭐
+        </div>
 
-        <div class="slot" id="slot3">💎</div>
+        <div class="slot" id="slot3">
+          💎
+        </div>
 
       </div>
 
+
       <div class="bet-section">
 
-        <label for="bet">BET AMOUNT</label>
+        <label for="bet">
+          BET AMOUNT
+        </label>
 
         <input
           id="bet"
@@ -233,12 +315,14 @@
 
       </div>
 
+
       <button
         class="play-button"
         onclick="playGame()"
       >
         PLAY
       </button>
+
 
       <button
         class="reset-button"
@@ -247,13 +331,47 @@
         RESET BALANCE
       </button>
 
-      <div class="result" id="result">
+
+      <div
+        class="result"
+        id="result"
+      >
         Good luck! 🍀
       </div>
 
     </section>
 
+
+    <!-- GAME HISTORY -->
+
+    <section class="history-card">
+
+      <div class="history-title">
+        📜 Game History
+      </div>
+
+
+      <div
+        class="history-list"
+        id="historyList"
+      >
+        <div class="empty-history">
+          No games played yet.
+        </div>
+      </div>
+
+
+      <button
+        class="clear-history"
+        onclick="clearHistory()"
+      >
+        CLEAR HISTORY
+      </button>
+
+    </section>
+
   </main>
+
 
   <footer class="footer">
     Cash Pot • Virtual Coins Prototype
@@ -262,22 +380,32 @@
 
   <script>
 
-    /*
-      LOAD SAVED BALANCE
-
-      If a balance was previously saved,
-      use it.
-
-      Otherwise start with 10,000 coins.
-    */
+    /* =========================
+       LOAD BALANCE
+    ========================= */
 
     let savedBalance =
       localStorage.getItem("cashPotBalance");
+
 
     let balance =
       savedBalance !== null
         ? Number(savedBalance)
         : 10000;
+
+
+    /* =========================
+       LOAD GAME HISTORY
+    ========================= */
+
+    let savedHistory =
+      localStorage.getItem("cashPotHistory");
+
+
+    let gameHistory =
+      savedHistory !== null
+        ? JSON.parse(savedHistory)
+        : [];
 
 
     let spinning = false;
@@ -294,6 +422,12 @@
 
     updateBalance();
 
+    displayHistory();
+
+
+    /* =========================
+       UPDATE BALANCE
+    ========================= */
 
     function updateBalance() {
 
@@ -302,6 +436,10 @@
 
     }
 
+
+    /* =========================
+       SAVE BALANCE
+    ========================= */
 
     function saveBalance() {
 
@@ -312,6 +450,10 @@
 
     }
 
+
+    /* =========================
+       PLAY GAME
+    ========================= */
 
     function playGame() {
 
@@ -346,6 +488,8 @@
         document.getElementById("slot3");
 
 
+      /* CHECK BET */
+
       if (bet < 100) {
 
         result.innerText =
@@ -355,6 +499,8 @@
       }
 
 
+      /* CHECK BALANCE */
+
       if (bet > balance) {
 
         result.innerText =
@@ -363,6 +509,8 @@
         return;
       }
 
+
+      /* START SPIN */
 
       spinning = true;
 
@@ -388,6 +536,7 @@
 
       const animation =
         setInterval(function() {
+
 
           slot1.innerText =
             symbols[
@@ -424,12 +573,18 @@
 
           }
 
+
         }, 100);
 
     }
 
 
+    /* =========================
+       FINISH GAME
+    ========================= */
+
     function finishGame(bet) {
+
 
       const slot1 =
         document.getElementById("slot1");
@@ -446,6 +601,8 @@
       const result =
         document.getElementById("result");
 
+
+      /* FINAL SYMBOLS */
 
       const a =
         symbols[
@@ -478,6 +635,8 @@
       slot3.innerText = c;
 
 
+      /* STOP ANIMATION */
+
       slot1.classList.remove("spinning");
 
       slot2.classList.remove("spinning");
@@ -485,10 +644,20 @@
       slot3.classList.remove("spinning");
 
 
+      let historyText = "";
+
+      let historyAmount = 0;
+
+      let historyType = "";
+
+
+      /* JACKPOT */
+
       if (
         a === b &&
         b === c
       ) {
+
 
         const winnings =
           bet * 5;
@@ -497,18 +666,34 @@
         balance += winnings;
 
 
-        result.innerText =
+        historyAmount =
+          winnings;
+
+
+        historyType =
+          "JACKPOT";
+
+
+        historyText =
           "🎉 JACKPOT! +" +
           winnings +
           " coins!";
 
+
+        result.innerText =
+          historyText;
+
       }
+
+
+      /* TWO MATCH */
 
       else if (
         a === b ||
         b === c ||
         a === c
       ) {
+
 
         const winnings =
           bet * 2;
@@ -517,34 +702,72 @@
         balance += winnings;
 
 
-        result.innerText =
+        historyAmount =
+          winnings;
+
+
+        historyType =
+          "TWO MATCH";
+
+
+        historyText =
           "✨ TWO MATCH! +" +
           winnings +
           " coins!";
 
+
+        result.innerText =
+          historyText;
+
       }
 
+
+      /* LOSS */
+
       else {
+
 
         balance -= bet;
 
 
-        result.innerText =
+        historyAmount =
+          bet;
+
+
+        historyType =
+          "LOSS";
+
+
+        historyText =
           "😢 You lost " +
           bet +
           " coins.";
 
+
+        result.innerText =
+          historyText;
+
       }
 
 
+      /* SAVE BALANCE */
+
       saveBalance();
+
 
       updateBalance();
 
 
-      const button =
-        document.querySelector(".play-button");
+      /* ADD HISTORY */
 
+      addHistory(
+        historyType,
+        historyAmount,
+        a + " " + b + " " + c
+      );
+
+
+      /* ENABLE BUTTON */
 
       button.disabled = false;
 
@@ -557,16 +780,248 @@
     }
 
 
+    /* =========================
+       ADD HISTORY
+    ========================= */
+
+    function addHistory(
+      type,
+      amount,
+      symbolsResult
+    ) {
+
+
+      const now =
+        new Date();
+
+
+      const time =
+        now.toLocaleTimeString(
+          [],
+          {
+            hour: "2-digit",
+            minute: "2-digit"
+          }
+        );
+
+
+      const historyItem = {
+
+        type: type,
+
+        amount: amount,
+
+        symbols: symbolsResult,
+
+        time: time
+
+      };
+
+
+      gameHistory.unshift(
+        historyItem
+      );
+
+
+      /* KEEP ONLY LAST 10 */
+
+      gameHistory =
+        gameHistory.slice(0, 10);
+
+
+      localStorage.setItem(
+        "cashPotHistory",
+        JSON.stringify(gameHistory)
+      );
+
+
+      displayHistory();
+
+    }
+
+
+    /* =========================
+       DISPLAY HISTORY
+    ========================= */
+
+    function displayHistory() {
+
+
+      const list =
+        document.getElementById(
+          "historyList"
+        );
+
+
+      if (
+        gameHistory.length === 0
+      ) {
+
+
+        list.innerHTML =
+          '<div class="empty-history">' +
+          'No games played yet.' +
+          '</div>';
+
+
+        return;
+
+      }
+
+
+      list.innerHTML = "";
+
+
+      gameHistory.forEach(
+        function(item) {
+
+
+          const row =
+            document.createElement(
+              "div"
+            );
+
+
+          row.className =
+            "history-item";
+
+
+          const details =
+            document.createElement(
+              "div"
+            );
+
+
+          const game =
+            document.createElement(
+              "div"
+            );
+
+
+          game.className =
+            "history-game";
+
+
+          game.innerText =
+            item.symbols +
+            " • " +
+            item.type;
+
+
+          const time =
+            document.createElement(
+              "div"
+            );
+
+
+          time.className =
+            "history-time";
+
+
+          time.innerText =
+            item.time;
+
+
+          details.appendChild(game);
+
+          details.appendChild(time);
+
+
+          const amount =
+            document.createElement(
+              "div"
+            );
+
+
+          if (
+            item.type === "LOSS"
+          ) {
+
+
+            amount.className =
+              "loss";
+
+
+            amount.innerText =
+              "-" +
+              item.amount +
+              " 🪙";
+
+          }
+
+          else {
+
+
+            amount.className =
+              "win";
+
+
+            amount.innerText =
+              "+" +
+              item.amount +
+              " 🪙";
+
+          }
+
+
+          row.appendChild(details);
+
+          row.appendChild(amount);
+
+
+          list.appendChild(row);
+
+        }
+      );
+
+    }
+
+
+    /* =========================
+       CLEAR HISTORY
+    ========================= */
+
+    function clearHistory() {
+
+
+      gameHistory = [];
+
+
+      localStorage.removeItem(
+        "cashPotHistory"
+      );
+
+
+      displayHistory();
+
+
+      document.getElementById(
+        "result"
+      ).innerText =
+        "Game history cleared.";
+
+    }
+
+
+    /* =========================
+       RESET BALANCE
+    ========================= */
+
     function resetBalance() {
+
 
       balance = 10000;
 
+
       saveBalance();
+
 
       updateBalance();
 
 
-      document.getElementById("result").innerText =
+      document.getElementById(
+        "result"
+      ).innerText =
         "Balance reset to 10,000 coins.";
 
     }
