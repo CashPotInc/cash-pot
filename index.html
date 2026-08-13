@@ -7,70 +7,258 @@
   <title>Cash Pot</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px 20px;
-      background: #111;
+      background: #080b12;
       color: white;
+      min-height: 100vh;
     }
 
-    h1 {
-      font-size: 40px;
+    .header {
+      padding: 22px 20px;
+      text-align: center;
+      border-bottom: 1px solid #202633;
     }
 
-    #balance {
-      font-size: 24px;
-      margin: 25px;
+    .logo {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: 2px;
     }
 
-    button {
-      padding: 15px 40px;
-      font-size: 20px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
+    .subtitle {
+      color: #8992a3;
+      margin-top: 5px;
+      font-size: 13px;
     }
 
-    #result {
-      margin-top: 25px;
+    .container {
+      max-width: 480px;
+      margin: auto;
+      padding: 25px 18px;
+    }
+
+    .balance-card {
+      background: linear-gradient(135deg, #171d29, #10151f);
+      border: 1px solid #293242;
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .balance-label {
+      color: #8f99aa;
+      font-size: 13px;
+    }
+
+    .balance {
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .game-card {
+      background: #111722;
+      border: 1px solid #293242;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .game-title {
       font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    .slots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .slot {
+      width: 75px;
+      height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #080b12;
+      border: 2px solid #30394a;
+      border-radius: 15px;
+      font-size: 38px;
+    }
+
+    .bet-section {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .bet-section label {
+      color: #9ca6b7;
+      font-size: 13px;
+    }
+
+    .bet-input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+      background: #080b12;
+      border: 1px solid #30394a;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+    }
+
+    .play-button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 17px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      background: #ffffff;
+      color: #080b12;
+    }
+
+    .play-button:active {
+      transform: scale(0.98);
+    }
+
+    .result {
+      min-height: 28px;
+      margin-top: 18px;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .footer {
+      text-align: center;
+      color: #596273;
+      font-size: 12px;
+      padding: 25px;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>🎰 CASH POT</h1>
+  <header class="header">
+    <div class="logo">🎰 CASH POT</div>
+    <div class="subtitle">PLAY • SPIN • WIN</div>
+  </header>
 
-  <p>Play • Spin • Win</p>
+  <main class="container">
 
-  <div id="balance">Balance: 10,000 Coins</div>
+    <section class="balance-card">
+      <div class="balance-label">YOUR BALANCE</div>
+      <div class="balance" id="balance">
+        10,000 🪙
+      </div>
+    </section>
 
-  <button onclick="playGame()">PLAY</button>
+    <section class="game-card">
 
-  <div id="result">Press PLAY to start!</div>
+      <div class="game-title">
+        🎰 Lucky Spin
+      </div>
+
+      <div class="slots">
+        <div class="slot" id="slot1">🍒</div>
+        <div class="slot" id="slot2">⭐</div>
+        <div class="slot" id="slot3">💎</div>
+      </div>
+
+      <div class="bet-section">
+        <label for="bet">BET AMOUNT</label>
+
+        <input
+          id="bet"
+          class="bet-input"
+          type="number"
+          value="500"
+          min="100"
+          step="100"
+        >
+      </div>
+
+      <button class="play-button" onclick="playGame()">
+        PLAY
+      </button>
+
+      <div class="result" id="result">
+        Good luck! 🍀
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    Cash Pot • Virtual Coins Prototype
+  </footer>
 
   <script>
+
     let balance = 10000;
+
+    const symbols = ["🍒", "⭐", "💎", "🍋", "7️⃣"];
 
     function playGame() {
 
-      let win = Math.random() < 0.5;
+      const bet = Number(document.getElementById("bet").value);
 
-      if (win) {
-        balance += 1000;
-        document.getElementById("result").innerHTML =
-          "🎉 YOU WON 1,000 COINS!";
-      } else {
-        balance -= 500;
-        document.getElementById("result").innerHTML =
-          "😢 YOU LOST 500 COINS";
+      if (bet <= 0) {
+        document.getElementById("result").innerText =
+          "Enter a valid bet.";
+        return;
       }
 
-      document.getElementById("balance").innerHTML =
-        "Balance: " + balance.toLocaleString() + " Coins";
+      if (bet > balance) {
+        document.getElementById("result").innerText =
+          "Insufficient coins.";
+        return;
+      }
+
+      const a = symbols[Math.floor(Math.random() * symbols.length)];
+      const b = symbols[Math.floor(Math.random() * symbols.length)];
+      const c = symbols[Math.floor(Math.random() * symbols.length)];
+
+      document.getElementById("slot1").innerText = a;
+      document.getElementById("slot2").innerText = b;
+      document.getElementById("slot3").innerText = c;
+
+      if (a === b && b === c) {
+
+        const winnings = bet * 5;
+
+        balance += winnings;
+
+        document.getElementById("result").innerText =
+          "🎉 JACKPOT! +" + winnings + " coins!";
+
+      } else {
+
+        balance -= bet;
+
+        document.getElementById("result").innerText =
+          "😢 You lost " + bet + " coins.";
+
+      }
+
+      document.getElementById("balance").innerText =
+        balance.toLocaleString() + " 🪙";
     }
+
   </script>
 
 </body>
