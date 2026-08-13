@@ -18,44 +18,47 @@ body {
   background: #080b12;
   color: white;
   min-height: 100vh;
+  padding-bottom: 75px;
 }
 
 .header {
-  padding: 22px 20px;
+  padding: 20px;
   text-align: center;
   border-bottom: 1px solid #202633;
 }
 
 .logo {
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 800;
   letter-spacing: 2px;
 }
 
 .subtitle {
   color: #8992a3;
+  font-size: 12px;
   margin-top: 5px;
-  font-size: 13px;
 }
 
 .container {
   max-width: 480px;
   margin: auto;
-  padding: 25px 18px;
+  padding: 20px 16px;
 }
+
+/* BALANCE */
 
 .balance-card {
   background: linear-gradient(135deg, #171d29, #10151f);
   border: 1px solid #293242;
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 22px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
 .balance-label {
   color: #8f99aa;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .balance {
@@ -64,28 +67,73 @@ body {
   margin-top: 8px;
 }
 
-.game-card,
-.history-card {
+.balance-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.balance-btn {
+  flex: 1;
+  padding: 11px;
+  border-radius: 10px;
+  border: 1px solid #30394a;
+  background: #080b12;
+  color: white;
+  font-weight: bold;
+}
+
+/* SECTIONS */
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.card {
   background: #111722;
   border: 1px solid #293242;
   border-radius: 20px;
   padding: 20px;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.game-title,
-.history-title {
-  font-size: 22px;
-  font-weight: bold;
   margin-bottom: 18px;
 }
+
+.section-title {
+  font-size: 21px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* HOME */
+
+.welcome {
+  font-size: 15px;
+  color: #aeb6c5;
+  line-height: 1.6;
+}
+
+.start-button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: white;
+  color: #080b12;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+/* GAME */
 
 .slots {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin: 20px 0;
+  margin: 22px 0;
 }
 
 .slot {
@@ -121,12 +169,7 @@ body {
 
 }
 
-.bet-section {
-  margin-top: 20px;
-  text-align: left;
-}
-
-.bet-section label {
+.bet-label {
   color: #9ca6b7;
   font-size: 13px;
 }
@@ -155,20 +198,14 @@ body {
   border-radius: 9px;
   background: #171d29;
   color: white;
-  cursor: pointer;
   font-weight: bold;
 }
 
-.quick-bet:active {
-  transform: scale(0.96);
-}
-
 .payout-info {
-  margin-top: 18px;
+  margin-top: 16px;
   padding: 13px;
   background: #080b12;
   border-radius: 10px;
-  text-align: left;
   color: #8992a3;
   font-size: 13px;
   line-height: 1.7;
@@ -180,48 +217,31 @@ body {
 
 .play-button {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 18px;
   padding: 17px;
   border: none;
   border-radius: 12px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
   background: white;
   color: #080b12;
-}
-
-.play-button:active {
-  transform: scale(0.97);
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .play-button:disabled {
   opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.reset-button,
-.clear-history {
-  width: 100%;
-  margin-top: 12px;
-  padding: 12px;
-  border: 1px solid #30394a;
-  border-radius: 10px;
-  background: transparent;
-  color: #8992a3;
-  cursor: pointer;
 }
 
 .result {
   min-height: 28px;
-  margin-top: 18px;
-  font-size: 17px;
+  margin-top: 17px;
+  text-align: center;
   font-weight: bold;
 }
 
+/* HISTORY */
+
 .history-list {
-  text-align: left;
-  max-height: 300px;
+  max-height: 350px;
   overflow-y: auto;
 }
 
@@ -231,11 +251,6 @@ body {
   align-items: center;
   padding: 13px 0;
   border-bottom: 1px solid #252d3a;
-  gap: 10px;
-}
-
-.history-item:last-child {
-  border-bottom: none;
 }
 
 .history-game {
@@ -252,26 +267,124 @@ body {
 .win {
   color: #7ee787;
   font-weight: bold;
-  white-space: nowrap;
 }
 
 .loss {
   color: #ff7b72;
   font-weight: bold;
-  white-space: nowrap;
 }
 
 .empty-history {
   color: #697386;
-  font-size: 14px;
   padding: 15px 0;
+  text-align: center;
+}
+
+.clear-history {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border: 1px solid #30394a;
+  border-radius: 10px;
+  background: transparent;
+  color: #8992a3;
+}
+
+/* WALLET */
+
+.wallet-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid #252d3a;
+}
+
+.wallet-label {
+  color: #8992a3;
+}
+
+.wallet-value {
+  font-weight: bold;
+}
+
+/* PROFILE */
+
+.profile-icon {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  background: #171d29;
+  border: 1px solid #30394a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  margin: 0 auto 15px;
+}
+
+.profile-name {
+  text-align: center;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.profile-text {
+  text-align: center;
+  color: #8992a3;
+  margin-top: 7px;
+}
+
+/* RESET */
+
+.reset-button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border: 1px solid #30394a;
+  border-radius: 10px;
+  background: transparent;
+  color: #8992a3;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background: #10151f;
+  border-top: 1px solid #293242;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+}
+
+.nav-button {
+  flex: 1;
+  max-width: 100px;
+  border: none;
+  background: transparent;
+  color: #697386;
+  font-size: 11px;
+}
+
+.nav-button span {
+  display: block;
+  font-size: 21px;
+  margin-bottom: 3px;
+}
+
+.nav-button.active {
+  color: white;
 }
 
 .footer {
   text-align: center;
   color: #596273;
-  font-size: 12px;
-  padding: 25px;
+  font-size: 11px;
+  padding: 20px;
 }
 
 </style>
@@ -295,49 +408,103 @@ body {
 <main class="container">
 
 
+<!-- BALANCE -->
+
 <section class="balance-card">
 
   <div class="balance-label">
-    YOUR BALANCE
+    AVAILABLE BALANCE
   </div>
 
   <div class="balance" id="balance">
     10,000 🪙
   </div>
 
+  <div class="balance-buttons">
+
+    <button class="balance-btn"
+      onclick="showPage('wallet')">
+      💰 Wallet
+    </button>
+
+    <button class="balance-btn"
+      onclick="showPage('history')">
+      📜 History
+    </button>
+
+  </div>
+
 </section>
 
 
+<!-- HOME -->
 
-<section class="game-card">
+<section id="home" class="page active">
 
-  <div class="game-title">
-    🎰 Lucky Spin
+  <div class="card">
+
+    <div class="section-title">
+      👋 Welcome to Cash Pot
+    </div>
+
+    <div class="welcome">
+      Your virtual gaming playground.
+      Choose a game, place your virtual coin
+      bet and try your luck.
+    </div>
+
+    <button
+      class="start-button"
+      onclick="showPage('play')">
+      🎰 PLAY LUCKY SPIN
+    </button>
+
   </div>
 
 
-  <div class="slots">
+  <div class="card">
 
-    <div class="slot" id="slot1">
-      🍒
+    <div class="section-title">
+      🏆 How It Works
     </div>
 
-    <div class="slot" id="slot2">
-      ⭐
-    </div>
-
-    <div class="slot" id="slot3">
-      💎
+    <div class="welcome">
+      🎯 Choose your bet<br>
+      🎰 Spin the reels<br>
+      ⭐ Match two symbols for 2×<br>
+      💎 Match three symbols for 5×
     </div>
 
   </div>
 
+</section>
 
-  <div class="bet-section">
 
-    <label>
+<!-- PLAY -->
+
+<section id="play" class="page">
+
+  <div class="card">
+
+    <div class="section-title">
+      🎰 Lucky Spin
+    </div>
+
+
+    <div class="slots">
+
+      <div class="slot" id="slot1">🍒</div>
+
+      <div class="slot" id="slot2">⭐</div>
+
+      <div class="slot" id="slot3">💎</div>
+
+    </div>
+
+
+    <div class="bet-label">
       BET AMOUNT
-    </label>
+    </div>
 
     <input
       id="bet"
@@ -351,114 +518,264 @@ body {
 
     <div class="quick-bets">
 
-      <button
-        class="quick-bet"
-        onclick="setBet(100)"
-      >
+      <button class="quick-bet"
+        onclick="setBet(100)">
         100
       </button>
 
-      <button
-        class="quick-bet"
-        onclick="setBet(500)"
-      >
+      <button class="quick-bet"
+        onclick="setBet(500)">
         500
       </button>
 
-      <button
-        class="quick-bet"
-        onclick="setBet(1000)"
-      >
+      <button class="quick-bet"
+        onclick="setBet(1000)">
         1,000
       </button>
 
     </div>
 
-  </div>
+
+    <div class="payout-info">
+
+      <strong>🏆 PAYOUTS</strong><br>
+
+      3 matching → <strong>5×</strong><br>
+
+      2 matching → <strong>2×</strong><br>
+
+      No match → <strong>Lose bet</strong>
+
+    </div>
 
 
-  <div class="payout-info">
-
-    <strong>🏆 PAYOUTS</strong><br>
-
-    3 matching symbols → <strong>5× bet</strong><br>
-
-    2 matching symbols → <strong>2× bet</strong><br>
-
-    No match → <strong>Lose bet</strong>
-
-  </div>
+    <button
+      class="play-button"
+      onclick="playGame()">
+      PLAY
+    </button>
 
 
-  <button
-    class="play-button"
-    onclick="playGame()"
-  >
-    PLAY
-  </button>
+    <div
+      class="result"
+      id="result">
+      Good luck! 🍀
+    </div>
 
-
-  <button
-    class="reset-button"
-    onclick="resetBalance()"
-  >
-    RESET BALANCE
-  </button>
-
-
-  <div
-    class="result"
-    id="result"
-  >
-    Good luck! 🍀
   </div>
 
 </section>
 
 
+<!-- WALLET -->
 
-<section class="history-card">
+<section id="wallet" class="page">
 
-  <div class="history-title">
-    📜 Game History
+  <div class="card">
+
+    <div class="section-title">
+      💰 Wallet
+    </div>
+
+
+    <div class="wallet-row">
+
+      <div class="wallet-label">
+        Current Balance
+      </div>
+
+      <div
+        class="wallet-value"
+        id="walletBalance">
+        10,000 🪙
+      </div>
+
+    </div>
+
+
+    <div class="wallet-row">
+
+      <div class="wallet-label">
+        Currency
+      </div>
+
+      <div class="wallet-value">
+        Virtual Coins
+      </div>
+
+    </div>
+
+
+    <div class="wallet-row">
+
+      <div class="wallet-label">
+        Account Type
+      </div>
+
+      <div class="wallet-value">
+        Demo
+      </div>
+
+    </div>
+
+
+    <button
+      class="reset-button"
+      onclick="resetBalance()">
+      RESET DEMO BALANCE
+    </button>
+
   </div>
 
+</section>
 
-  <div
-    class="history-list"
-    id="historyList"
-  >
 
-    <div class="empty-history">
-      No games played yet.
+<!-- HISTORY -->
+
+<section id="history" class="page">
+
+  <div class="card">
+
+    <div class="section-title">
+      📜 Game History
+    </div>
+
+
+    <div
+      class="history-list"
+      id="historyList">
+
+      <div class="empty-history">
+        No games played yet.
+      </div>
+
+    </div>
+
+
+    <button
+      class="clear-history"
+      onclick="clearHistory()">
+      CLEAR HISTORY
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="page">
+
+  <div class="card">
+
+    <div class="profile-icon">
+      👤
+    </div>
+
+    <div class="profile-name">
+      Cash Pot Player
+    </div>
+
+    <div class="profile-text">
+      Virtual Demo Account
     </div>
 
   </div>
 
 
-  <button
-    class="clear-history"
-    onclick="clearHistory()"
-  >
-    CLEAR HISTORY
-  </button>
+  <div class="card">
+
+    <div class="section-title">
+      ⚙️ Account
+    </div>
+
+    <div class="wallet-row">
+
+      <div class="wallet-label">
+        Account Status
+      </div>
+
+      <div class="wallet-value">
+        Active
+      </div>
+
+    </div>
+
+    <div class="wallet-row">
+
+      <div class="wallet-label">
+        Games Played
+      </div>
+
+      <div
+        class="wallet-value"
+        id="gamesPlayed">
+        0
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
+
 
 </main>
 
 
-
 <footer class="footer">
-
   Cash Pot • Virtual Coins Prototype
-
 </footer>
 
 
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+  <button
+    class="nav-button active"
+    onclick="showPage('home', this)">
+    <span>🏠</span>
+    Home
+  </button>
+
+
+  <button
+    class="nav-button"
+    onclick="showPage('play', this)">
+    <span>🎰</span>
+    Play
+  </button>
+
+
+  <button
+    class="nav-button"
+    onclick="showPage('wallet', this)">
+    <span>💰</span>
+    Wallet
+  </button>
+
+
+  <button
+    class="nav-button"
+    onclick="showPage('history', this)">
+    <span>📜</span>
+    History
+  </button>
+
+
+  <button
+    class="nav-button"
+    onclick="showPage('profile', this)">
+    <span>👤</span>
+    Profile
+  </button>
+
+</nav>
+
 
 <script>
-
 
 /* =========================
    BALANCE
@@ -486,11 +803,8 @@ let gameHistory =
     : [];
 
 
-/* =========================
-   GAME VARIABLES
-========================= */
-
 let spinning = false;
+
 
 const symbols = [
   "🍒",
@@ -505,24 +819,99 @@ updateBalance();
 
 displayHistory();
 
+updateGamesPlayed();
 
 
 /* =========================
-   UPDATE BALANCE
+   PAGE NAVIGATION
 ========================= */
 
-function updateBalance() {
+function showPage(pageId, button) {
 
-  document.getElementById("balance").innerText =
-    balance.toLocaleString() + " 🪙";
+  const pages =
+    document.querySelectorAll(".page");
+
+  pages.forEach(function(page) {
+
+    page.classList.remove("active");
+
+  });
+
+
+  const selectedPage =
+    document.getElementById(pageId);
+
+  if (selectedPage) {
+
+    selectedPage.classList.add("active");
+
+  }
+
+
+  const navButtons =
+    document.querySelectorAll(".nav-button");
+
+  navButtons.forEach(function(btn) {
+
+    btn.classList.remove("active");
+
+  });
+
+
+  if (button) {
+
+    button.classList.add("active");
+
+  }
+  else {
+
+    navButtons.forEach(function(btn) {
+
+      if (
+        btn.innerText
+          .toLowerCase()
+          .includes(pageId)
+      ) {
+
+        btn.classList.add("active");
+
+      }
+
+    });
+
+  }
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
 }
 
 
-
 /* =========================
-   SAVE BALANCE
+   BALANCE
 ========================= */
+
+function updateBalance() {
+
+  const formatted =
+    balance.toLocaleString() +
+    " 🪙";
+
+
+  document.getElementById(
+    "balance"
+  ).innerText = formatted;
+
+
+  document.getElementById(
+    "walletBalance"
+  ).innerText = formatted;
+
+}
+
 
 function saveBalance() {
 
@@ -534,22 +923,21 @@ function saveBalance() {
 }
 
 
-
 /* =========================
-   SET QUICK BET
+   BET
 ========================= */
 
 function setBet(amount) {
 
-  document.getElementById("bet").value =
-    amount;
+  document.getElementById(
+    "bet"
+  ).value = amount;
 
 }
 
 
-
 /* =========================
-   PLAY GAME
+   PLAY
 ========================= */
 
 function playGame() {
@@ -573,20 +961,6 @@ function playGame() {
     document.querySelector(".play-button");
 
 
-  const slot1 =
-    document.getElementById("slot1");
-
-
-  const slot2 =
-    document.getElementById("slot2");
-
-
-  const slot3 =
-    document.getElementById("slot3");
-
-
-  /* CHECK BET */
-
   if (
     !Number.isFinite(bet) ||
     bet < 100
@@ -600,8 +974,6 @@ function playGame() {
   }
 
 
-  /* ONLY ALLOW WHOLE HUNDREDS */
-
   if (bet % 100 !== 0) {
 
     result.innerText =
@@ -611,8 +983,6 @@ function playGame() {
 
   }
 
-
-  /* CHECK BALANCE */
 
   if (bet > balance) {
 
@@ -624,16 +994,12 @@ function playGame() {
   }
 
 
-  /* DEDUCT BET BEFORE SPIN */
-
   balance -= bet;
 
   saveBalance();
 
   updateBalance();
 
-
-  /* START SPIN */
 
   spinning = true;
 
@@ -642,8 +1008,19 @@ function playGame() {
   button.innerText =
     "SPINNING...";
 
+
   result.innerText =
     "🎰 Spinning...";
+
+
+  const slot1 =
+    document.getElementById("slot1");
+
+  const slot2 =
+    document.getElementById("slot2");
+
+  const slot3 =
+    document.getElementById("slot3");
 
 
   slot1.classList.add("spinning");
@@ -661,27 +1038,15 @@ function playGame() {
 
 
       slot1.innerText =
-        symbols[
-          Math.floor(
-            Math.random() * symbols.length
-          )
-        ];
+        randomSymbol();
 
 
       slot2.innerText =
-        symbols[
-          Math.floor(
-            Math.random() * symbols.length
-          )
-        ];
+        randomSymbol();
 
 
       slot3.innerText =
-        symbols[
-          Math.floor(
-            Math.random() * symbols.length
-          )
-        ];
+        randomSymbol();
 
 
       spins++;
@@ -695,11 +1060,24 @@ function playGame() {
 
       }
 
-
     }, 100);
 
 }
 
+
+/* =========================
+   RANDOM SYMBOL
+========================= */
+
+function randomSymbol() {
+
+  return symbols[
+    Math.floor(
+      Math.random() * symbols.length
+    )
+  ];
+
+}
 
 
 /* =========================
@@ -726,30 +1104,11 @@ function finishGame(bet) {
     document.querySelector(".play-button");
 
 
-  /* FINAL SYMBOLS */
+  const a = randomSymbol();
 
-  const a =
-    symbols[
-      Math.floor(
-        Math.random() * symbols.length
-      )
-    ];
+  const b = randomSymbol();
 
-
-  const b =
-    symbols[
-      Math.floor(
-        Math.random() * symbols.length
-      )
-    ];
-
-
-  const c =
-    symbols[
-      Math.floor(
-        Math.random() * symbols.length
-      )
-    ];
+  const c = randomSymbol();
 
 
   slot1.innerText = a;
@@ -759,8 +1118,6 @@ function finishGame(bet) {
   slot3.innerText = c;
 
 
-  /* STOP ANIMATION */
-
   slot1.classList.remove("spinning");
 
   slot2.classList.remove("spinning");
@@ -768,48 +1125,30 @@ function finishGame(bet) {
   slot3.classList.remove("spinning");
 
 
-  let historyType;
+  let type;
 
-  let historyAmount;
+  let amount;
 
-  let resultText;
+  let text;
 
-
-  /* =========================
-     JACKPOT
-  ========================= */
 
   if (
     a === b &&
     b === c
   ) {
 
-    const winnings =
-      bet * 5;
+    amount = bet * 5;
 
+    balance += amount;
 
-    balance += winnings;
+    type = "JACKPOT";
 
-
-    historyAmount =
-      winnings;
-
-
-    historyType =
-      "JACKPOT";
-
-
-    resultText =
+    text =
       "🎉 JACKPOT! +" +
-      winnings +
+      amount +
       " coins!";
 
   }
-
-
-  /* =========================
-     TWO MATCH
-  ========================= */
 
   else if (
     a === b ||
@@ -817,44 +1156,26 @@ function finishGame(bet) {
     a === c
   ) {
 
-    const winnings =
-      bet * 2;
+    amount = bet * 2;
 
+    balance += amount;
 
-    balance += winnings;
+    type = "TWO MATCH";
 
-
-    historyAmount =
-      winnings;
-
-
-    historyType =
-      "TWO MATCH";
-
-
-    resultText =
+    text =
       "✨ TWO MATCH! +" +
-      winnings +
+      amount +
       " coins!";
 
   }
 
-
-  /* =========================
-     LOSS
-  ========================= */
-
   else {
 
-    historyAmount =
-      bet;
+    amount = bet;
 
+    type = "LOSS";
 
-    historyType =
-      "LOSS";
-
-
-    resultText =
+    text =
       "😢 You lost " +
       bet +
       " coins.";
@@ -862,43 +1183,34 @@ function finishGame(bet) {
   }
 
 
-  /* SHOW RESULT */
+  result.innerText = text;
 
-  result.innerText =
-    resultText;
-
-
-  /* SAVE */
 
   saveBalance();
 
   updateBalance();
 
 
-  /* HISTORY */
-
   addHistory(
-    historyType,
-    historyAmount,
+    type,
+    amount,
     a + " " + b + " " + c
   );
 
-
-  /* ENABLE */
 
   button.disabled = false;
 
   button.innerText =
     "PLAY";
 
+
   spinning = false;
 
 }
 
 
-
 /* =========================
-   ADD HISTORY
+   HISTORY
 ========================= */
 
 function addHistory(
@@ -921,7 +1233,7 @@ function addHistory(
     );
 
 
-  const historyItem = {
+  gameHistory.unshift({
 
     type: type,
 
@@ -931,12 +1243,7 @@ function addHistory(
 
     time: time
 
-  };
-
-
-  gameHistory.unshift(
-    historyItem
-  );
+  });
 
 
   gameHistory =
@@ -951,8 +1258,9 @@ function addHistory(
 
   displayHistory();
 
-}
+  updateGamesPlayed();
 
+}
 
 
 /* =========================
@@ -989,9 +1297,7 @@ function displayHistory() {
 
 
       const row =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
 
       row.className =
@@ -999,15 +1305,11 @@ function displayHistory() {
 
 
       const details =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
 
       const game =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
 
       game.className =
@@ -1021,9 +1323,7 @@ function displayHistory() {
 
 
       const time =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
 
       time.className =
@@ -1040,9 +1340,7 @@ function displayHistory() {
 
 
       const amount =
-        document.createElement(
-          "div"
-        );
+        document.createElement("div");
 
 
       if (
@@ -1052,19 +1350,16 @@ function displayHistory() {
         amount.className =
           "loss";
 
-
         amount.innerText =
           "-" +
           item.amount.toLocaleString() +
           " 🪙";
 
       }
-
       else {
 
         amount.className =
           "win";
-
 
         amount.innerText =
           "+" +
@@ -1087,6 +1382,27 @@ function displayHistory() {
 }
 
 
+/* =========================
+   GAMES PLAYED
+========================= */
+
+function updateGamesPlayed() {
+
+  const games =
+    document.getElementById(
+      "gamesPlayed"
+    );
+
+
+  if (games) {
+
+    games.innerText =
+      gameHistory.length;
+
+  }
+
+}
+
 
 /* =========================
    CLEAR HISTORY
@@ -1104,14 +1420,21 @@ function clearHistory() {
 
   displayHistory();
 
+  updateGamesPlayed();
 
-  document.getElementById(
-    "result"
-  ).innerText =
-    "Game history cleared.";
+
+  const result =
+    document.getElementById("result");
+
+
+  if (result) {
+
+    result.innerText =
+      "Game history cleared.";
+
+  }
 
 }
-
 
 
 /* =========================
@@ -1125,14 +1448,19 @@ function resetBalance() {
 
   saveBalance();
 
-
   updateBalance();
 
 
-  document.getElementById(
-    "result"
-  ).innerText =
-    "Balance reset to 10,000 coins.";
+  const result =
+    document.getElementById("result");
+
+
+  if (result) {
+
+    result.innerText =
+      "Balance reset to 10,000 coins.";
+
+  }
 
 }
 
