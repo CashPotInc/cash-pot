@@ -8,82 +8,170 @@
 
 <style>
 
+/* =====================================================
+   CASH POT — VIRTUAL GAMING APP
+   ===================================================== */
+
+:root {
+  --bg: #070816;
+  --bg2: #0d1024;
+  --card: #11152b;
+  --card2: #171b36;
+  --border: #292e52;
+
+  --violet: #8b5cf6;
+  --purple: #a855f7;
+  --cyan: #22d3ee;
+  --gold: #fbbf24;
+
+  --green: #34d399;
+  --red: #fb7185;
+
+  --text: #f8fafc;
+  --muted: #8d96ad;
+}
+
 * {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #080b12;
-  color: white;
-  min-height: 100vh;
-  padding-bottom: 75px;
+html {
+  scroll-behavior: smooth;
 }
 
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at 20% 0%, #1d1640 0%, transparent 35%),
+    radial-gradient(circle at 100% 20%, #082f49 0%, transparent 30%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 82px;
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
 .header {
-  padding: 20px;
+  padding: 18px 18px 20px;
   text-align: center;
-  border-bottom: 1px solid #202633;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7,8,22,.85);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .logo {
-  font-size: 28px;
-  font-weight: 800;
+  width: 45px;
+  height: 45px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--violet), var(--cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  box-shadow: 0 0 25px rgba(139,92,246,.35);
+}
+
+.brand-name {
+  font-size: 25px;
+  font-weight: 900;
   letter-spacing: 2px;
 }
 
 .subtitle {
-  color: #8992a3;
-  font-size: 12px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 2px;
   margin-top: 5px;
 }
 
+/* =====================================================
+   MAIN
+   ===================================================== */
+
 .container {
-  max-width: 480px;
+  max-width: 500px;
   margin: auto;
-  padding: 20px 16px;
+  padding: 18px 15px;
 }
 
-/* BALANCE */
+/* =====================================================
+   BALANCE
+   ===================================================== */
 
 .balance-card {
-  background: linear-gradient(135deg, #171d29, #10151f);
-  border: 1px solid #293242;
-  border-radius: 20px;
-  padding: 22px;
-  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, #20154d, #10213d);
+  border: 1px solid #41367b;
+  border-radius: 24px;
+  padding: 24px 20px;
   margin-bottom: 18px;
+  box-shadow: 0 15px 40px rgba(0,0,0,.25);
+}
+
+.balance-card::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  right: -60px;
+  top: -70px;
+  background: rgba(34,211,238,.12);
 }
 
 .balance-label {
-  color: #8f99aa;
-  font-size: 12px;
+  color: #b5b9ca;
+  font-size: 11px;
+  letter-spacing: 1.5px;
 }
 
 .balance {
-  font-size: 34px;
-  font-weight: bold;
-  margin-top: 8px;
+  font-size: 35px;
+  font-weight: 900;
+  margin-top: 7px;
 }
 
-.balance-buttons {
+.coin-label {
+  color: var(--gold);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.balance-actions {
   display: flex;
-  gap: 10px;
-  margin-top: 18px;
+  gap: 9px;
+  margin-top: 20px;
 }
 
-.balance-btn {
+.balance-action {
   flex: 1;
   padding: 11px;
-  border-radius: 10px;
-  border: 1px solid #30394a;
-  background: #080b12;
+  border-radius: 11px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.2);
   color: white;
   font-weight: bold;
 }
 
-/* SECTIONS */
+/* =====================================================
+   PAGES
+   ===================================================== */
 
 .page {
   display: none;
@@ -91,157 +179,325 @@ body {
 
 .page.active {
   display: block;
+  animation: pageIn .25s ease;
 }
 
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   CARDS
+   ===================================================== */
+
 .card {
-  background: #111722;
-  border: 1px solid #293242;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 18px;
+  background: rgba(17,21,43,.94);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 19px;
+  margin-bottom: 17px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
 }
 
 .section-title {
-  font-size: 21px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 800;
   margin-bottom: 15px;
 }
 
-/* HOME */
-
-.welcome {
-  font-size: 15px;
-  color: #aeb6c5;
-  line-height: 1.6;
+.muted {
+  color: var(--muted);
 }
 
-.start-button {
+/* =====================================================
+   HOME
+   ===================================================== */
+
+.hero {
+  padding: 24px 20px;
+  background:
+    linear-gradient(135deg, rgba(139,92,246,.24), rgba(34,211,238,.08));
+  border: 1px solid #393363;
+  border-radius: 22px;
+  margin-bottom: 17px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 27px;
+}
+
+.hero p {
+  color: #aeb6ca;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.primary-button {
   width: 100%;
-  margin-top: 18px;
-  padding: 16px;
   border: none;
-  border-radius: 12px;
-  background: white;
-  color: #080b12;
+  padding: 16px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--violet), var(--purple));
+  color: white;
   font-size: 17px;
+  font-weight: 900;
+  box-shadow: 0 8px 25px rgba(139,92,246,.28);
+}
+
+.primary-button:active {
+  transform: scale(.98);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.feature {
+  padding: 16px;
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.feature-icon {
+  font-size: 24px;
+}
+
+.feature-title {
+  margin-top: 9px;
   font-weight: bold;
 }
 
-/* GAME */
+.feature-text {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* =====================================================
+   GAME
+   ===================================================== */
+
+.game-card {
+  background:
+    radial-gradient(circle at 50% 0%, #2a1853, transparent 45%),
+    var(--card);
+  border: 1px solid #393363;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.game-title {
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.demo-badge {
+  font-size: 10px;
+  padding: 5px 8px;
+  border-radius: 20px;
+  color: var(--cyan);
+  background: rgba(34,211,238,.1);
+  border: 1px solid rgba(34,211,238,.25);
+}
+
+/* =====================================================
+   SLOT MACHINE
+   ===================================================== */
+
+.slot-machine {
+  margin-top: 20px;
+  padding: 17px 10px;
+  border-radius: 20px;
+  background: #080914;
+  border: 2px solid #30355b;
+  box-shadow:
+    inset 0 0 25px rgba(139,92,246,.08),
+    0 10px 30px rgba(0,0,0,.3);
+}
 
 .slots {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin: 22px 0;
+  gap: 9px;
 }
 
 .slot {
-  width: 75px;
-  height: 75px;
+  width: 82px;
+  height: 82px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #080b12;
-  border: 2px solid #30394a;
-  border-radius: 15px;
-  font-size: 38px;
+  background: linear-gradient(145deg,#151936,#090b18);
+  border: 2px solid #363b65;
+  border-radius: 16px;
+  font-size: 39px;
   overflow: hidden;
 }
 
 .slot.spinning {
-  animation: reelSpin 0.12s linear infinite;
+  animation: reelSpin .12s linear infinite;
 }
 
 @keyframes reelSpin {
 
   0% {
-    transform: translateY(-14px) rotateX(0deg);
+    transform: translateY(-13px) rotateX(0deg);
   }
 
   50% {
-    transform: translateY(14px) rotateX(180deg);
+    transform: translateY(13px) rotateX(180deg);
   }
 
   100% {
-    transform: translateY(-14px) rotateX(360deg);
+    transform: translateY(-13px) rotateX(360deg);
   }
 
 }
 
-.bet-label {
-  color: #9ca6b7;
-  font-size: 13px;
+.machine-lights {
+  text-align: center;
+  color: var(--gold);
+  letter-spacing: 8px;
+  margin-top: 13px;
+  font-size: 10px;
+}
+
+/* =====================================================
+   BET
+   ===================================================== */
+
+.input-label {
+  display: block;
+  color: #aab2c4;
+  font-size: 12px;
+  margin-top: 19px;
+  margin-bottom: 7px;
 }
 
 .bet-input {
   width: 100%;
   padding: 14px;
-  margin-top: 8px;
-  background: #080b12;
-  border: 1px solid #30394a;
-  border-radius: 10px;
+  background: #080914;
   color: white;
+  border: 1px solid #343a60;
+  border-radius: 11px;
   font-size: 16px;
+  outline: none;
+}
+
+.bet-input:focus {
+  border-color: var(--violet);
 }
 
 .quick-bets {
   display: flex;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 9px;
 }
 
 .quick-bet {
   flex: 1;
-  padding: 10px 5px;
-  border: 1px solid #30394a;
-  border-radius: 9px;
-  background: #171d29;
+  padding: 10px;
+  background: var(--card2);
   color: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
   font-weight: bold;
 }
 
-.payout-info {
-  margin-top: 16px;
-  padding: 13px;
-  background: #080b12;
-  border-radius: 10px;
-  color: #8992a3;
-  font-size: 13px;
-  line-height: 1.7;
+.quick-bet:active {
+  transform: scale(.96);
 }
 
-.payout-info strong {
+.payout-box {
+  margin-top: 17px;
+  padding: 14px;
+  border-radius: 13px;
+  background: #090b18;
+  border: 1px solid #252a4a;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.payout-box strong {
   color: white;
 }
 
 .play-button {
   width: 100%;
-  margin-top: 18px;
+  margin-top: 17px;
   padding: 17px;
   border: none;
-  border-radius: 12px;
-  background: white;
-  color: #080b12;
+  border-radius: 13px;
+  background: linear-gradient(135deg, var(--violet), var(--purple));
+  color: white;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 900;
+  box-shadow: 0 8px 25px rgba(139,92,246,.25);
 }
 
 .play-button:disabled {
-  opacity: 0.6;
+  opacity: .55;
 }
 
 .result {
-  min-height: 28px;
-  margin-top: 17px;
+  min-height: 26px;
   text-align: center;
-  font-weight: bold;
+  margin-top: 16px;
+  font-weight: 800;
 }
 
-/* HISTORY */
+/* =====================================================
+   STATS
+   ===================================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stat {
+  background: var(--card2);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.stat-number {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+/* =====================================================
+   HISTORY
+   ===================================================== */
 
 .history-list {
-  max-height: 350px;
+  max-height: 390px;
   overflow-y: auto;
 }
 
@@ -250,112 +506,176 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 13px 0;
-  border-bottom: 1px solid #252d3a;
+  border-bottom: 1px solid #252a44;
+}
+
+.history-item:last-child {
+  border-bottom: none;
 }
 
 .history-game {
-  color: #c8ced9;
   font-size: 14px;
 }
 
 .history-time {
-  color: #697386;
+  color: #69728a;
   font-size: 11px;
   margin-top: 4px;
 }
 
 .win {
-  color: #7ee787;
-  font-weight: bold;
+  color: var(--green);
+  font-weight: 900;
 }
 
 .loss {
-  color: #ff7b72;
-  font-weight: bold;
+  color: var(--red);
+  font-weight: 900;
 }
 
 .empty-history {
-  color: #697386;
-  padding: 15px 0;
   text-align: center;
+  color: var(--muted);
+  padding: 25px 0;
 }
 
-.clear-history {
+.clear-button {
   width: 100%;
   margin-top: 15px;
   padding: 12px;
-  border: 1px solid #30394a;
-  border-radius: 10px;
   background: transparent;
-  color: #8992a3;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 10px;
 }
 
-/* WALLET */
+/* =====================================================
+   WALLET
+   ===================================================== */
+
+.wallet-balance {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg,#18133c,#0e2539);
+  border-radius: 17px;
+  border: 1px solid #36325f;
+}
+
+.wallet-balance-label {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.wallet-number {
+  font-size: 31px;
+  font-weight: 900;
+  margin-top: 7px;
+  color: var(--gold);
+}
 
 .wallet-row {
   display: flex;
   justify-content: space-between;
   padding: 15px 0;
-  border-bottom: 1px solid #252d3a;
+  border-bottom: 1px solid #252a44;
+}
+
+.wallet-row:last-child {
+  border-bottom: none;
 }
 
 .wallet-label {
-  color: #8992a3;
+  color: var(--muted);
 }
 
 .wallet-value {
   font-weight: bold;
 }
 
-/* PROFILE */
+/* =====================================================
+   DAILY BONUS
+   ===================================================== */
 
-.profile-icon {
-  width: 75px;
-  height: 75px;
+.bonus-card {
+  background:
+    linear-gradient(135deg, #3b2469, #172c49);
+  border: 1px solid #57428b;
+}
+
+.bonus-amount {
+  font-size: 29px;
+  font-weight: 900;
+  color: var(--gold);
+  margin: 8px 0;
+}
+
+.bonus-button {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 11px;
+  background: var(--gold);
+  color: #201600;
+  font-weight: 900;
+}
+
+.bonus-button:disabled {
+  opacity: .45;
+}
+
+/* =====================================================
+   PROFILE
+   ===================================================== */
+
+.profile-avatar {
+  width: 78px;
+  height: 78px;
+  margin: 0 auto 13px;
   border-radius: 50%;
-  background: #171d29;
-  border: 1px solid #30394a;
+  background: linear-gradient(135deg,var(--violet),var(--cyan));
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 35px;
-  margin: 0 auto 15px;
+  font-size: 37px;
+  box-shadow: 0 0 30px rgba(139,92,246,.3);
 }
 
 .profile-name {
   text-align: center;
   font-size: 21px;
-  font-weight: bold;
+  font-weight: 900;
 }
 
-.profile-text {
+.profile-status {
   text-align: center;
-  color: #8992a3;
-  margin-top: 7px;
+  color: var(--green);
+  font-size: 12px;
+  margin-top: 5px;
 }
-
-/* RESET */
 
 .reset-button {
   width: 100%;
+  padding: 13px;
   margin-top: 15px;
-  padding: 12px;
-  border: 1px solid #30394a;
-  border-radius: 10px;
   background: transparent;
-  color: #8992a3;
+  border: 1px solid #3a405c;
+  border-radius: 10px;
+  color: var(--muted);
 }
 
-/* BOTTOM NAV */
+/* =====================================================
+   BOTTOM NAV
+   ===================================================== */
 
 .bottom-nav {
   position: fixed;
-  bottom: 0;
   left: 0;
   right: 0;
-  height: 68px;
-  background: #10151f;
-  border-top: 1px solid #293242;
+  bottom: 0;
+  height: 73px;
+  background: rgba(12,15,32,.96);
+  backdrop-filter: blur(15px);
+  border-top: 1px solid var(--border);
   display: flex;
   justify-content: center;
   z-index: 100;
@@ -366,49 +686,89 @@ body {
   max-width: 100px;
   border: none;
   background: transparent;
-  color: #697386;
-  font-size: 11px;
+  color: #69728a;
+  font-size: 10px;
+  font-weight: bold;
 }
 
-.nav-button span {
+.nav-icon {
   display: block;
   font-size: 21px;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 
 .nav-button.active {
   color: white;
 }
 
+.nav-button.active .nav-icon {
+  filter: drop-shadow(0 0 7px rgba(139,92,246,.8));
+}
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+
 .footer {
   text-align: center;
   color: #596273;
-  font-size: 11px;
+  font-size: 10px;
   padding: 20px;
+}
+
+@media(max-width:360px) {
+
+  .slot {
+    width: 68px;
+    height: 68px;
+    font-size: 32px;
+  }
+
+  .balance {
+    font-size: 29px;
+  }
+
 }
 
 </style>
 </head>
 
+
 <body>
+
+
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
 
 <header class="header">
 
-  <div class="logo">
-    🎰 CASH POT
+  <div class="brand">
+
+    <div class="logo">
+      🪙
+    </div>
+
+    <div class="brand-name">
+      CASH POT
+    </div>
+
   </div>
 
   <div class="subtitle">
-    PLAY • SPIN • WIN
+    VIRTUAL • PLAY • SPIN • WIN
   </div>
 
 </header>
 
 
+
 <main class="container">
 
 
-<!-- BALANCE -->
+<!-- =====================================================
+     BALANCE
+     ===================================================== -->
 
 <section class="balance-card">
 
@@ -416,18 +776,27 @@ body {
     AVAILABLE BALANCE
   </div>
 
-  <div class="balance" id="balance">
+  <div
+    class="balance"
+    id="balance">
     10,000 🪙
   </div>
 
-  <div class="balance-buttons">
+  <div class="coin-label">
+    VIRTUAL COINS
+  </div>
 
-    <button class="balance-btn"
+
+  <div class="balance-actions">
+
+    <button
+      class="balance-action"
       onclick="showPage('wallet')">
       💰 Wallet
     </button>
 
-    <button class="balance-btn"
+    <button
+      class="balance-action"
       onclick="showPage('history')">
       📜 History
     </button>
@@ -437,26 +806,31 @@ body {
 </section>
 
 
-<!-- HOME -->
 
-<section id="home" class="page active">
+<!-- =====================================================
+     HOME
+     ===================================================== -->
 
-  <div class="card">
+<section
+  id="home"
+  class="page active">
 
-    <div class="section-title">
-      👋 Welcome to Cash Pot
-    </div>
 
-    <div class="welcome">
-      Your virtual gaming playground.
-      Choose a game, place your virtual coin
-      bet and try your luck.
-    </div>
+  <div class="hero">
+
+    <h1>
+      Welcome to Cash Pot 🎰
+    </h1>
+
+    <p>
+      Spin the reels, chase matching symbols
+      and build your virtual coin balance.
+    </p>
 
     <button
-      class="start-button"
+      class="primary-button"
       onclick="showPage('play')">
-      🎰 PLAY LUCKY SPIN
+      🎰 START PLAYING
     </button>
 
   </div>
@@ -465,46 +839,170 @@ body {
   <div class="card">
 
     <div class="section-title">
-      🏆 How It Works
+      ✨ Cash Pot Features
     </div>
 
-    <div class="welcome">
-      🎯 Choose your bet<br>
-      🎰 Spin the reels<br>
-      ⭐ Match two symbols for 2×<br>
-      💎 Match three symbols for 5×
+    <div class="feature-grid">
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          🎰
+        </div>
+
+        <div class="feature-title">
+          Lucky Spin
+        </div>
+
+        <div class="feature-text">
+          Spin the reels and match symbols.
+        </div>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          🎁
+        </div>
+
+        <div class="feature-title">
+          Daily Bonus
+        </div>
+
+        <div class="feature-text">
+          Claim free virtual coins.
+        </div>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          🏆
+        </div>
+
+        <div class="feature-title">
+          Statistics
+        </div>
+
+        <div class="feature-text">
+          Track your gaming activity.
+        </div>
+
+      </div>
+
+
+      <div class="feature">
+
+        <div class="feature-icon">
+          💾
+        </div>
+
+        <div class="feature-title">
+          Saved Data
+        </div>
+
+        <div class="feature-text">
+          Your progress stays on this device.
+        </div>
+
+      </div>
+
     </div>
 
   </div>
 
+
+  <div class="card bonus-card">
+
+    <div class="section-title">
+      🎁 Daily Bonus
+    </div>
+
+    <div class="muted">
+      Claim your free virtual coins once per day.
+    </div>
+
+    <div class="bonus-amount">
+      +1,000 🪙
+    </div>
+
+    <button
+      id="bonusButton"
+      class="bonus-button"
+      onclick="claimBonus()">
+      CLAIM BONUS
+    </button>
+
+  </div>
+
+
 </section>
 
 
-<!-- PLAY -->
 
-<section id="play" class="page">
+<!-- =====================================================
+     PLAY
+     ===================================================== -->
 
-  <div class="card">
+<section
+  id="play"
+  class="page">
 
-    <div class="section-title">
-      🎰 Lucky Spin
+
+  <div class="card game-card">
+
+
+    <div class="game-header">
+
+      <div class="game-title">
+        🎰 Lucky Spin
+      </div>
+
+      <div class="demo-badge">
+        VIRTUAL
+      </div>
+
     </div>
 
 
-    <div class="slots">
+    <div class="slot-machine">
 
-      <div class="slot" id="slot1">🍒</div>
+      <div class="slots">
 
-      <div class="slot" id="slot2">⭐</div>
+        <div
+          class="slot"
+          id="slot1">
+          🍒
+        </div>
 
-      <div class="slot" id="slot3">💎</div>
+        <div
+          class="slot"
+          id="slot2">
+          ⭐
+        </div>
+
+        <div
+          class="slot"
+          id="slot3">
+          💎
+        </div>
+
+      </div>
+
+      <div class="machine-lights">
+        • • • • • •
+      </div>
 
     </div>
 
 
-    <div class="bet-label">
+    <label class="input-label">
       BET AMOUNT
-    </div>
+    </label>
 
     <input
       id="bet"
@@ -512,81 +1010,167 @@ body {
       type="number"
       value="500"
       min="100"
-      step="100"
-    >
+      step="100">
 
 
     <div class="quick-bets">
 
-      <button class="quick-bet"
+      <button
+        class="quick-bet"
         onclick="setBet(100)">
         100
       </button>
 
-      <button class="quick-bet"
+      <button
+        class="quick-bet"
         onclick="setBet(500)">
         500
       </button>
 
-      <button class="quick-bet"
+      <button
+        class="quick-bet"
         onclick="setBet(1000)">
         1,000
+      </button>
+
+      <button
+        class="quick-bet"
+        onclick="setBet(5000)">
+        5,000
       </button>
 
     </div>
 
 
-    <div class="payout-info">
+    <div class="payout-box">
 
       <strong>🏆 PAYOUTS</strong><br>
 
-      3 matching → <strong>5×</strong><br>
+      💎 3 matching symbols →
+      <strong>5× bet</strong><br>
 
-      2 matching → <strong>2×</strong><br>
+      ⭐ 2 matching symbols →
+      <strong>2× bet</strong><br>
 
-      No match → <strong>Lose bet</strong>
+      ❌ No match →
+      <strong>Lose bet</strong>
 
     </div>
 
 
     <button
+      id="playButton"
       class="play-button"
       onclick="playGame()">
-      PLAY
+      🎰 SPIN
     </button>
 
 
     <div
-      class="result"
-      id="result">
+      id="result"
+      class="result">
       Good luck! 🍀
     </div>
 
   </div>
 
-</section>
-
-
-<!-- WALLET -->
-
-<section id="wallet" class="page">
 
   <div class="card">
 
     <div class="section-title">
-      💰 Wallet
+      📊 Your Stats
     </div>
 
+    <div class="stats-grid">
 
-    <div class="wallet-row">
+      <div class="stat">
 
-      <div class="wallet-label">
-        Current Balance
+        <div
+          id="totalGames"
+          class="stat-number">
+          0
+        </div>
+
+        <div class="stat-label">
+          Games Played
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div
+          id="totalWins"
+          class="stat-number">
+          0
+        </div>
+
+        <div class="stat-label">
+          Wins
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div
+          id="totalJackpots"
+          class="stat-number">
+          0
+        </div>
+
+        <div class="stat-label">
+          Jackpots
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div
+          id="bestWin"
+          class="stat-number">
+          0
+        </div>
+
+        <div class="stat-label">
+          Best Win
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =====================================================
+     WALLET
+     ===================================================== -->
+
+<section
+  id="wallet"
+  class="page">
+
+
+  <div class="card">
+
+    <div class="wallet-balance">
+
+      <div class="wallet-balance-label">
+        VIRTUAL WALLET
       </div>
 
       <div
-        class="wallet-value"
-        id="walletBalance">
+        id="walletBalance"
+        class="wallet-number">
         10,000 🪙
       </div>
 
@@ -609,7 +1193,7 @@ body {
     <div class="wallet-row">
 
       <div class="wallet-label">
-        Account Type
+        Account
       </div>
 
       <div class="wallet-value">
@@ -619,20 +1203,51 @@ body {
     </div>
 
 
-    <button
-      class="reset-button"
-      onclick="resetBalance()">
-      RESET DEMO BALANCE
-    </button>
+    <div class="wallet-row">
+
+      <div class="wallet-label">
+        Storage
+      </div>
+
+      <div class="wallet-value">
+        This Device
+      </div>
+
+    </div>
 
   </div>
+
+
+  <div class="card">
+
+    <div class="section-title">
+      ℹ️ About Your Wallet
+    </div>
+
+    <div class="muted"
+      style="line-height:1.7;font-size:13px">
+
+      Cash Pot currently uses virtual coins.
+      No real-money deposits or withdrawals
+      are connected to this prototype.
+
+    </div>
+
+  </div>
+
 
 </section>
 
 
-<!-- HISTORY -->
 
-<section id="history" class="page">
+<!-- =====================================================
+     HISTORY
+     ===================================================== -->
+
+<section
+  id="history"
+  class="page">
+
 
   <div class="card">
 
@@ -642,8 +1257,8 @@ body {
 
 
     <div
-      class="history-list"
-      id="historyList">
+      id="historyList"
+      class="history-list">
 
       <div class="empty-history">
         No games played yet.
@@ -653,32 +1268,39 @@ body {
 
 
     <button
-      class="clear-history"
+      class="clear-button"
       onclick="clearHistory()">
       CLEAR HISTORY
     </button>
 
   </div>
 
+
 </section>
 
 
-<!-- PROFILE -->
 
-<section id="profile" class="page">
+<!-- =====================================================
+     PROFILE
+     ===================================================== -->
+
+<section
+  id="profile"
+  class="page">
+
 
   <div class="card">
 
-    <div class="profile-icon">
-      👤
+    <div class="profile-avatar">
+      🪙
     </div>
 
     <div class="profile-name">
       Cash Pot Player
     </div>
 
-    <div class="profile-text">
-      Virtual Demo Account
+    <div class="profile-status">
+      ● VIRTUAL ACCOUNT
     </div>
 
   </div>
@@ -687,20 +1309,9 @@ body {
   <div class="card">
 
     <div class="section-title">
-      ⚙️ Account
+      📊 Player Statistics
     </div>
 
-    <div class="wallet-row">
-
-      <div class="wallet-label">
-        Account Status
-      </div>
-
-      <div class="wallet-value">
-        Active
-      </div>
-
-    </div>
 
     <div class="wallet-row">
 
@@ -709,98 +1320,202 @@ body {
       </div>
 
       <div
-        class="wallet-value"
-        id="gamesPlayed">
+        id="profileGames"
+        class="wallet-value">
         0
       </div>
 
     </div>
 
+
+    <div class="wallet-row">
+
+      <div class="wallet-label">
+        Total Wins
+      </div>
+
+      <div
+        id="profileWins"
+        class="wallet-value">
+        0
+      </div>
+
+    </div>
+
+
+    <div class="wallet-row">
+
+      <div class="wallet-label">
+        Jackpots
+      </div>
+
+      <div
+        id="profileJackpots"
+        class="wallet-value">
+        0
+      </div>
+
+    </div>
+
+
+    <div class="wallet-row">
+
+      <div class="wallet-label">
+        Best Win
+      </div>
+
+      <div
+        id="profileBest"
+        class="wallet-value">
+        0 🪙
+      </div>
+
+    </div>
+
+
+    <button
+      class="reset-button"
+      onclick="resetEverything()">
+      RESET DEMO ACCOUNT
+    </button>
+
   </div>
 
+
 </section>
+
+
+<footer class="footer">
+  CASH POT • VIRTUAL GAMING PROTOTYPE
+</footer>
 
 
 </main>
 
 
-<footer class="footer">
-  Cash Pot • Virtual Coins Prototype
-</footer>
 
-
-<!-- BOTTOM NAV -->
+<!-- =====================================================
+     NAVIGATION
+     ===================================================== -->
 
 <nav class="bottom-nav">
 
   <button
     class="nav-button active"
-    onclick="showPage('home', this)">
-    <span>🏠</span>
+    data-page="home"
+    onclick="showPage('home',this)">
+
+    <span class="nav-icon">🏠</span>
     Home
+
   </button>
 
 
   <button
     class="nav-button"
-    onclick="showPage('play', this)">
-    <span>🎰</span>
+    data-page="play"
+    onclick="showPage('play',this)">
+
+    <span class="nav-icon">🎰</span>
     Play
+
   </button>
 
 
   <button
     class="nav-button"
-    onclick="showPage('wallet', this)">
-    <span>💰</span>
+    data-page="wallet"
+    onclick="showPage('wallet',this)">
+
+    <span class="nav-icon">💰</span>
     Wallet
+
   </button>
 
 
   <button
     class="nav-button"
-    onclick="showPage('history', this)">
-    <span>📜</span>
+    data-page="history"
+    onclick="showPage('history',this)">
+
+    <span class="nav-icon">📜</span>
     History
+
   </button>
 
 
   <button
     class="nav-button"
-    onclick="showPage('profile', this)">
-    <span>👤</span>
+    data-page="profile"
+    onclick="showPage('profile',this)">
+
+    <span class="nav-icon">👤</span>
     Profile
+
   </button>
 
 </nav>
 
 
+
 <script>
 
-/* =========================
-   BALANCE
-========================= */
-
-let savedBalance =
-  localStorage.getItem("cashPotBalance");
+/* =====================================================
+   DATA
+   ===================================================== */
 
 let balance =
-  savedBalance !== null
-    ? Number(savedBalance)
-    : 10000;
+  Number(
+    localStorage.getItem("cashPotBalance")
+  );
+
+if (!Number.isFinite(balance)) {
+  balance = 10000;
+}
 
 
-/* =========================
-   HISTORY
-========================= */
+let gameHistory;
 
-let savedHistory =
-  localStorage.getItem("cashPotHistory");
+try {
 
-let gameHistory =
-  savedHistory !== null
-    ? JSON.parse(savedHistory)
-    : [];
+  gameHistory =
+    JSON.parse(
+      localStorage.getItem("cashPotHistory")
+    ) || [];
+
+}
+catch {
+
+  gameHistory = [];
+
+}
+
+
+let stats;
+
+try {
+
+  stats =
+    JSON.parse(
+      localStorage.getItem("cashPotStats")
+    ) || {
+      games: 0,
+      wins: 0,
+      jackpots: 0,
+      bestWin: 0
+    };
+
+}
+catch {
+
+  stats = {
+    games: 0,
+    wins: 0,
+    jackpots: 0,
+    bestWin: 0
+  };
+
+}
 
 
 let spinning = false;
@@ -815,47 +1530,49 @@ const symbols = [
 ];
 
 
+/* =====================================================
+   INITIALIZE
+   ===================================================== */
+
 updateBalance();
 
 displayHistory();
 
-updateGamesPlayed();
+updateStats();
+
+checkBonus();
 
 
-/* =========================
-   PAGE NAVIGATION
-========================= */
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
 
 function showPage(pageId, button) {
 
-  const pages =
-    document.querySelectorAll(".page");
+  document
+    .querySelectorAll(".page")
+    .forEach(function(page) {
 
-  pages.forEach(function(page) {
+      page.classList.remove("active");
 
-    page.classList.remove("active");
-
-  });
+    });
 
 
-  const selectedPage =
+  const page =
     document.getElementById(pageId);
 
-  if (selectedPage) {
-
-    selectedPage.classList.add("active");
-
+  if (page) {
+    page.classList.add("active");
   }
 
 
-  const navButtons =
-    document.querySelectorAll(".nav-button");
+  document
+    .querySelectorAll(".nav-button")
+    .forEach(function(nav) {
 
-  navButtons.forEach(function(btn) {
+      nav.classList.remove("active");
 
-    btn.classList.remove("active");
-
-  });
+    });
 
 
   if (button) {
@@ -865,19 +1582,16 @@ function showPage(pageId, button) {
   }
   else {
 
-    navButtons.forEach(function(btn) {
+    const nav =
+      document.querySelector(
+        '.nav-button[data-page="' +
+        pageId +
+        '"]'
+      );
 
-      if (
-        btn.innerText
-          .toLowerCase()
-          .includes(pageId)
-      ) {
-
-        btn.classList.add("active");
-
-      }
-
-    });
+    if (nav) {
+      nav.classList.add("active");
+    }
 
   }
 
@@ -890,9 +1604,9 @@ function showPage(pageId, button) {
 }
 
 
-/* =========================
+/* =====================================================
    BALANCE
-========================= */
+   ===================================================== */
 
 function updateBalance() {
 
@@ -901,14 +1615,23 @@ function updateBalance() {
     " 🪙";
 
 
-  document.getElementById(
-    "balance"
-  ).innerText = formatted;
+  const balanceElement =
+    document.getElementById("balance");
+
+  const walletElement =
+    document.getElementById("walletBalance");
 
 
-  document.getElementById(
-    "walletBalance"
-  ).innerText = formatted;
+  if (balanceElement) {
+    balanceElement.innerText =
+      formatted;
+  }
+
+
+  if (walletElement) {
+    walletElement.innerText =
+      formatted;
+  }
 
 }
 
@@ -923,22 +1646,36 @@ function saveBalance() {
 }
 
 
-/* =========================
+/* =====================================================
    BET
-========================= */
+   ===================================================== */
 
 function setBet(amount) {
 
-  document.getElementById(
-    "bet"
-  ).value = amount;
+  document.getElementById("bet").value =
+    amount;
 
 }
 
 
-/* =========================
-   PLAY
-========================= */
+/* =====================================================
+   RANDOM SYMBOL
+   ===================================================== */
+
+function randomSymbol() {
+
+  return symbols[
+    Math.floor(
+      Math.random() * symbols.length
+    )
+  ];
+
+}
+
+
+/* =====================================================
+   PLAY GAME
+   ===================================================== */
 
 function playGame() {
 
@@ -958,7 +1695,7 @@ function playGame() {
 
 
   const button =
-    document.querySelector(".play-button");
+    document.getElementById("playButton");
 
 
   if (
@@ -994,12 +1731,16 @@ function playGame() {
   }
 
 
+  /* DEDUCT BET */
+
   balance -= bet;
 
   saveBalance();
 
   updateBalance();
 
+
+  /* START */
 
   spinning = true;
 
@@ -1010,7 +1751,7 @@ function playGame() {
 
 
   result.innerText =
-    "🎰 Spinning...";
+    "🎰 Reels spinning...";
 
 
   const slot1 =
@@ -1040,10 +1781,8 @@ function playGame() {
       slot1.innerText =
         randomSymbol();
 
-
       slot2.innerText =
         randomSymbol();
-
 
       slot3.innerText =
         randomSymbol();
@@ -1052,7 +1791,7 @@ function playGame() {
       spins++;
 
 
-      if (spins >= 25) {
+      if (spins >= 28) {
 
         clearInterval(animation);
 
@@ -1060,29 +1799,14 @@ function playGame() {
 
       }
 
-    }, 100);
+    }, 90);
 
 }
 
 
-/* =========================
-   RANDOM SYMBOL
-========================= */
-
-function randomSymbol() {
-
-  return symbols[
-    Math.floor(
-      Math.random() * symbols.length
-    )
-  ];
-
-}
-
-
-/* =========================
+/* =====================================================
    FINISH GAME
-========================= */
+   ===================================================== */
 
 function finishGame(bet) {
 
@@ -1101,7 +1825,7 @@ function finishGame(bet) {
 
 
   const button =
-    document.querySelector(".play-button");
+    document.getElementById("playButton");
 
 
   const a = randomSymbol();
@@ -1132,23 +1856,38 @@ function finishGame(bet) {
   let text;
 
 
+  /* JACKPOT */
+
   if (
     a === b &&
     b === c
   ) {
 
-    amount = bet * 5;
+    amount =
+      bet * 5;
 
     balance += amount;
 
-    type = "JACKPOT";
+    type =
+      "JACKPOT";
+
+    stats.wins++;
+
+    stats.jackpots++;
+
+    if (amount > stats.bestWin) {
+      stats.bestWin = amount;
+    }
 
     text =
       "🎉 JACKPOT! +" +
-      amount +
+      amount.toLocaleString() +
       " coins!";
 
   }
+
+
+  /* TWO MATCH */
 
   else if (
     a === b ||
@@ -1156,39 +1895,58 @@ function finishGame(bet) {
     a === c
   ) {
 
-    amount = bet * 2;
+    amount =
+      bet * 2;
 
     balance += amount;
 
-    type = "TWO MATCH";
+    type =
+      "TWO MATCH";
+
+    stats.wins++;
+
+    if (amount > stats.bestWin) {
+      stats.bestWin = amount;
+    }
 
     text =
       "✨ TWO MATCH! +" +
-      amount +
+      amount.toLocaleString() +
       " coins!";
 
   }
 
+
+  /* LOSS */
+
   else {
 
-    amount = bet;
+    amount =
+      bet;
 
-    type = "LOSS";
+    type =
+      "LOSS";
 
     text =
       "😢 You lost " +
-      bet +
+      bet.toLocaleString() +
       " coins.";
 
   }
 
 
-  result.innerText = text;
+  stats.games++;
 
 
   saveBalance();
 
+  saveStats();
+
   updateBalance();
+
+
+  result.innerText =
+    text;
 
 
   addHistory(
@@ -1198,10 +1956,13 @@ function finishGame(bet) {
   );
 
 
+  updateStats();
+
+
   button.disabled = false;
 
   button.innerText =
-    "PLAY";
+    "🎰 SPIN";
 
 
   spinning = false;
@@ -1209,9 +1970,9 @@ function finishGame(bet) {
 }
 
 
-/* =========================
+/* =====================================================
    HISTORY
-========================= */
+   ===================================================== */
 
 function addHistory(
   type,
@@ -1247,7 +2008,7 @@ function addHistory(
 
 
   gameHistory =
-    gameHistory.slice(0, 10);
+    gameHistory.slice(0, 20);
 
 
   localStorage.setItem(
@@ -1258,14 +2019,8 @@ function addHistory(
 
   displayHistory();
 
-  updateGamesPlayed();
-
 }
 
-
-/* =========================
-   DISPLAY HISTORY
-========================= */
 
 function displayHistory() {
 
@@ -1273,6 +2028,11 @@ function displayHistory() {
     document.getElementById(
       "historyList"
     );
+
+
+  if (!list) {
+    return;
+  }
 
 
   if (
@@ -1297,7 +2057,9 @@ function displayHistory() {
 
 
       const row =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       row.className =
@@ -1305,11 +2067,15 @@ function displayHistory() {
 
 
       const details =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       const game =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       game.className =
@@ -1323,7 +2089,9 @@ function displayHistory() {
 
 
       const time =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       time.className =
@@ -1340,7 +2108,9 @@ function displayHistory() {
 
 
       const amount =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
 
       if (
@@ -1382,36 +2152,9 @@ function displayHistory() {
 }
 
 
-/* =========================
-   GAMES PLAYED
-========================= */
-
-function updateGamesPlayed() {
-
-  const games =
-    document.getElementById(
-      "gamesPlayed"
-    );
-
-
-  if (games) {
-
-    games.innerText =
-      gameHistory.length;
-
-  }
-
-}
-
-
-/* =========================
-   CLEAR HISTORY
-========================= */
-
 function clearHistory() {
 
   gameHistory = [];
-
 
   localStorage.removeItem(
     "cashPotHistory"
@@ -1420,30 +2163,179 @@ function clearHistory() {
 
   displayHistory();
 
-  updateGamesPlayed();
+
+  stats.games = 0;
+  stats.wins = 0;
+  stats.jackpots = 0;
+  stats.bestWin = 0;
 
 
-  const result =
-    document.getElementById("result");
+  saveStats();
+
+  updateStats();
+
+}
 
 
-  if (result) {
+/* =====================================================
+   STATS
+   ===================================================== */
 
-    result.innerText =
-      "Game history cleared.";
+function saveStats() {
+
+  localStorage.setItem(
+    "cashPotStats",
+    JSON.stringify(stats)
+  );
+
+}
+
+
+function updateStats() {
+
+  const elements = {
+
+    totalGames:
+      document.getElementById("totalGames"),
+
+    totalWins:
+      document.getElementById("totalWins"),
+
+    totalJackpots:
+      document.getElementById("totalJackpots"),
+
+    bestWin:
+      document.getElementById("bestWin"),
+
+    profileGames:
+      document.getElementById("profileGames"),
+
+    profileWins:
+      document.getElementById("profileWins"),
+
+    profileJackpots:
+      document.getElementById("profileJackpots"),
+
+    profileBest:
+      document.getElementById("profileBest")
+
+  };
+
+
+  if (elements.totalGames) {
+    elements.totalGames.innerText =
+      stats.games;
+  }
+
+
+  if (elements.totalWins) {
+    elements.totalWins.innerText =
+      stats.wins;
+  }
+
+
+  if (elements.totalJackpots) {
+    elements.totalJackpots.innerText =
+      stats.jackpots;
+  }
+
+
+  if (elements.bestWin) {
+    elements.bestWin.innerText =
+      stats.bestWin.toLocaleString();
+  }
+
+
+  if (elements.profileGames) {
+    elements.profileGames.innerText =
+      stats.games;
+  }
+
+
+  if (elements.profileWins) {
+    elements.profileWins.innerText =
+      stats.wins;
+  }
+
+
+  if (elements.profileJackpots) {
+    elements.profileJackpots.innerText =
+      stats.jackpots;
+  }
+
+
+  if (elements.profileBest) {
+    elements.profileBest.innerText =
+      stats.bestWin.toLocaleString() +
+      " 🪙";
+  }
+
+}
+
+
+/* =====================================================
+   DAILY BONUS
+   ===================================================== */
+
+function checkBonus() {
+
+  const lastBonus =
+    localStorage.getItem(
+      "cashPotLastBonus"
+    );
+
+
+  const button =
+    document.getElementById(
+      "bonusButton"
+    );
+
+
+  if (!button) {
+    return;
+  }
+
+
+  if (!lastBonus) {
+    button.disabled = false;
+    return;
+  }
+
+
+  const today =
+    new Date().toDateString();
+
+
+  if (lastBonus === today) {
+
+    button.disabled = true;
+
+    button.innerText =
+      "BONUS CLAIMED TODAY";
 
   }
 
 }
 
 
-/* =========================
-   RESET BALANCE
-========================= */
+function claimBonus() {
 
-function resetBalance() {
+  const today =
+    new Date().toDateString();
 
-  balance = 10000;
+
+  const lastBonus =
+    localStorage.getItem(
+      "cashPotLastBonus"
+    );
+
+
+  if (lastBonus === today) {
+    return;
+  }
+
+
+  balance += 1000;
 
 
   saveBalance();
@@ -1451,16 +2343,99 @@ function resetBalance() {
   updateBalance();
 
 
-  const result =
-    document.getElementById("result");
+  localStorage.setItem(
+    "cashPotLastBonus",
+    today
+  );
 
 
-  if (result) {
+  const button =
+    document.getElementById(
+      "bonusButton"
+    );
 
-    result.innerText =
-      "Balance reset to 10,000 coins.";
 
+  button.disabled = true;
+
+  button.innerText =
+    "BONUS CLAIMED ✓";
+
+
+  alert(
+    "🎁 Daily Bonus!\n\n+1,000 virtual coins added!"
+  );
+
+}
+
+
+/* =====================================================
+   RESET EVERYTHING
+   ===================================================== */
+
+function resetEverything() {
+
+  const confirmed =
+    confirm(
+      "Reset your Cash Pot demo account?\n\n" +
+      "This will erase your balance, history, " +
+      "statistics and daily bonus status."
+    );
+
+
+  if (!confirmed) {
+    return;
   }
+
+
+  balance = 10000;
+
+
+  gameHistory = [];
+
+
+  stats = {
+
+    games: 0,
+
+    wins: 0,
+
+    jackpots: 0,
+
+    bestWin: 0
+
+  };
+
+
+  localStorage.removeItem(
+    "cashPotLastBonus"
+  );
+
+
+  saveBalance();
+
+  saveStats();
+
+
+  localStorage.removeItem(
+    "cashPotHistory"
+  );
+
+
+  updateBalance();
+
+  displayHistory();
+
+  updateStats();
+
+  checkBonus();
+
+
+  showPage("home");
+
+
+  alert(
+    "Cash Pot demo account has been reset."
+  );
 
 }
 
